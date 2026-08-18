@@ -1,13 +1,28 @@
-# AcodeTSTemplate
+# Acode TypeScript template
 
-This is the typescript version of Acode Plugin template 
+Official TypeScript template for Acode plugins.
 
-Read acode plugin [documentation](https://docs.acode.app/) to develop plugin for acode editor.
+Read the [plugin docs](https://docs.acode.app/) before you start.
 
-## Feature
+## Features
 
-- rich typing for acode and its global api
-- typings for acode.require api like:
-    - dialog boxes
-    - fs api
-    - file browser
+- TypeScript with `acode-plugin-types`
+- esbuild bundling, watch + local serve
+- `plugin.zip` packaging from the repo root
+
+For a plugin UI example with Preact, see [acode-plugin-preact](https://github.com/Acode-Foundation/acode-plugin-preact).
+
+## Scripts
+
+```sh
+npm install
+npm run dev        # watch, serve on :3000, rebuild plugin.zip
+npm run typecheck
+npm run build      # typecheck, bundle, write plugin.zip
+```
+
+In Acode, install from **Plugins → + → Remote** using:
+
+```
+http://<your-ip>:3000/plugin.zip
+```

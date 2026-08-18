@@ -1,38 +1,33 @@
 import plugin from "../plugin.json";
 
 class AcodePlugin {
-	public baseUrl: string | undefined;
+	baseUrl = "";
 
 	async init(
-		$page: Acode.WCPage,
-		cacheFile: Acode.FileSystem,
-		cacheFileUrl: string,
+		_page: Acode.WCPage,
+		_cacheFile: Acode.FileSystem,
+		_cacheFileUrl: string,
 	): Promise<void> {
-		// Add your initialization code here
+		// plugin initialisation
 	}
 
-	async destroy() {
-		// Add your cleanup code here
+	async destroy(): Promise<void> {
+		// plugin clean up
 	}
 }
 
 if (window.acode) {
 	const acodePlugin = new AcodePlugin();
+
 	acode.setPluginInit(
 		plugin.id,
-		async (
-			baseUrl: string,
-			$page: Acode.WCPage,
-			{ cacheFileUrl, cacheFile }: Acode.PluginInitOptions,
-		) => {
-			if (!baseUrl.endsWith("/")) {
-				baseUrl += "/";
-			}
-			acodePlugin.baseUrl = baseUrl;
+		async (baseUrl, $page, { cacheFileUrl, cacheFile }) => {
+			acodePlugin.baseUrl = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 			await acodePlugin.init($page, cacheFile, cacheFileUrl);
 		},
 	);
+
 	acode.setPluginUnmount(plugin.id, () => {
-		acodePlugin.destroy();
+		void acodePlugin.destroy();
 	});
 }
